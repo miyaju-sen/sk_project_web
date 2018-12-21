@@ -327,9 +327,10 @@ public class DataAccess extends Dao {
 	}
 
 	/**
-	 * 主キーで指定したプロットの削除フラグをtrueに変更（削除処理）
+	 * 指定したレコードの削除フラグをtrueに変更（削除処理）
 	 *
 	 * @param no 削除フラグを立てるレコードの主キー
+	 * @param table 削除フラグを立てるレコードに対応するテーブル
 	 * @return 更新行数
 	 * @throws Exception
 	 * @throws SQLException
@@ -398,6 +399,64 @@ public class DataAccess extends Dao {
 			this.pStmt.setString(17, c.getPersonality());
 			this.pStmt.setString(18, c.getAppearance());
 			this.pStmt.setString(19, c.getOther());
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * 登場人物更新
+	 *
+	 * @param c 登場人物エンティティクラス
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void UpdateCharacter(Character c) throws Exception, SQLException {
+		try {
+			this._sql = "UPDATE characters SET "
+					+ "phonetic = ?, "
+					+ "name = ?, "
+					+ "another = ?, "
+					+ "image_path = ?, "
+					+ "age = ?, "
+					+ "gender = ?, "
+					+ "birthday = ?, "
+					+ "height = ?, "
+					+ "weight = ?, "
+					+ "first_person = ?, "
+					+ "second_person = ?, "
+					+ "belongs = ?, "
+					+ "skill = ?, "
+					+ "profile = ?, "
+					+ "lived_process = ?, "
+					+ "personality = ?, "
+					+ "appearance = ?, "
+					+ "other = ? "
+					+ "WHERE = ?;";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, c.getPhonetic());
+			this.pStmt.setString(2, c.getName());
+			this.pStmt.setString(3, c.getAnother());
+			this.pStmt.setString(4, c.getImagePath());
+			this.pStmt.setString(5, c.getAge());
+			this.pStmt.setInt(6, c.getGender());
+			this.pStmt.setString(7, c.getBirthday());
+			this.pStmt.setInt(8, c.getHeight());
+			this.pStmt.setInt(9, c.getWeight());
+			this.pStmt.setString(10, c.getFirstPerson());
+			this.pStmt.setString(11, c.getSecondPerson());
+			this.pStmt.setString(12, c.getBelongs());
+			this.pStmt.setString(13, c.getSkill());
+			this.pStmt.setString(14, c.getProfile());
+			this.pStmt.setString(15, c.getLivedProcess());
+			this.pStmt.setString(16, c.getPersonality());
+			this.pStmt.setString(17, c.getAppearance());
+			this.pStmt.setString(18, c.getOther());
 
 			this.pStmt.executeUpdate();
 		}

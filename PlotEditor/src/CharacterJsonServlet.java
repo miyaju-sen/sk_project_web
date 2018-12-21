@@ -53,14 +53,12 @@ public class CharacterJsonServlet extends HttpServlet {
 		//取得したプロット情報のパラメーターをエンティティにセット
 		Character c = new Character();
 		String no = (String)request.getParameter("no");
-//		String plot = (String)request.getParameter("plot");
 		c.setPlot( (String)request.getParameter("plot") );
 		c.setPhonetic( (String)request.getParameter("phonetic") );
 		c.setName( (String)request.getParameter("name") );
 		c.setAnother( (String)request.getParameter("another") );
 		c.setImagePath( (String)request.getParameter("image_path") );
 		c.setAge( (String)request.getParameter("age") );
-//		String gender = (String)request.getParameter("gender");
 		c.setGender( (String)request.getParameter("gender") );
 		c.setBirthday( (String)request.getParameter("birthday") );
 		c.setHeight( (String)request.getParameter("height") );
@@ -82,15 +80,13 @@ public class CharacterJsonServlet extends HttpServlet {
 
 			//charactersテーブルに新規登録（noが空＆名前に値が入っている場合は新規登録の意）
 			if("".equals(no) && !"".equals( c.getName() )) {
-//				c.setPlot(plot);
-//				c.setGender(gender);
 				da.InsertCharacter(c);
 				newId = da.SelectLastInsert();
 			}
 			//UPDATE
 			else if(null != c.getName()){ //NULL回避
 				c.setNo(no);
-				//da.UpdatePlot(p); //TODO:削除フラグの更新
+				da.UpdateCharacter(c);
 				newId = no;
 			}
 
