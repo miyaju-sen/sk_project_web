@@ -22,7 +22,7 @@
 			"birthday":"<%=characters.get(i).getBirthday() %>",
 			"height":"<%=characters.get(i).getHeight() %>",
 			"weight":"<%=characters.get(i).getWeight() %>",
-			"first_person:"<%=characters.get(i).getFirstPerson() %>"",
+			"first_person":"<%=characters.get(i).getFirstPerson() %>",
 			"second_person":"<%=characters.get(i).getSecondPerson() %>",
 			"belongs":"<%=characters.get(i).getBelongs() %>",
 			"skill":"<%=characters.get(i).getSkill() %>",
