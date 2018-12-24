@@ -46,9 +46,11 @@ public class CharacterJsonServlet extends HttpServlet {
 
 		//新規登録した、あるいは更新したレコードの主キーを格納する変数
 		String newId = "nothing";
+		System.out.println("地点A");
 
 		//抽出したplotsテーブルの中身を格納する配列
 		ArrayList<Character> characters = new ArrayList<Character>();
+		System.out.println("地点B");
 
 		//取得したプロット情報のパラメーターをエンティティにセット
 		Character c = new Character();
@@ -59,7 +61,8 @@ public class CharacterJsonServlet extends HttpServlet {
 		c.setAnother( (String)request.getParameter("another") );
 		c.setImagePath( (String)request.getParameter("image_path") );
 		c.setAge( (String)request.getParameter("age") );
-		c.setGender( (String)request.getParameter("gender") );
+//		c.setGender( (String)request.getParameter("gender") );
+		c.setGender(1);
 		c.setBirthday( (String)request.getParameter("birthday") );
 		c.setHeight( (String)request.getParameter("height") );
 		c.setWeight( (String)request.getParameter("weight") );
@@ -76,7 +79,9 @@ public class CharacterJsonServlet extends HttpServlet {
 		//DBに接続
 		DataAccess da = null;
 		try {
+			System.out.println("地点E");
 			da = new DataAccess();
+			System.out.println(c.toString());
 
 			//charactersテーブルに新規登録（noが空＆名前に値が入っている場合は新規登録の意）
 			if("".equals(no) && !"".equals( c.getName() )) {
@@ -98,10 +103,12 @@ public class CharacterJsonServlet extends HttpServlet {
 		catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
+			System.out.println("地点C");
 		}
 		catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
+			System.out.println("地点D");
 		}
 
 		request.setAttribute("NEWID", newId);
