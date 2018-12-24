@@ -232,8 +232,8 @@ public class DataAccess extends Dao {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public ArrayList<Character> SelectCharacters() throws Exception, SQLException {
-		String where = "deleted = false";
+	public ArrayList<Character> SelectCharacters(String no) throws Exception, SQLException {
+		String where = "deleted = false AND plot = " + no;
 		this.SelectWhere("characters", where);
 		ArrayList<Character> result = new ArrayList<Character>();
 		try {

@@ -95,7 +95,7 @@ public class CharacterJsonServlet extends HttpServlet {
 			}
 
 			//登場人物sテーブルから全件抽出
-			characters = da.SelectCharacters();
+			characters = da.SelectCharacters(no);
 
 			da.Close();
 		}
