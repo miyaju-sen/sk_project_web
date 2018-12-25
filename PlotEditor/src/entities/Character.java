@@ -160,7 +160,7 @@ public class Character {
 	 * @param height 身長
 	 */
 	public void setHeight(String height) {
-		if(null != height) {
+		if(null != height && !"".equals(height)) {
 			this._height = Integer.valueOf(height);
 		}
 	}
@@ -176,7 +176,7 @@ public class Character {
 	 * @param weight 体重
 	 */
 	public void setWeight(String weight) {
-		if(null != weight) {
+		if(null != weight && !"".equals(weight)) {
 			this._weight = Integer.valueOf(weight);
 		}
 	}
