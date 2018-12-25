@@ -50,7 +50,6 @@ public class CharacterJsonServlet extends HttpServlet {
 
 		//抽出したplotsテーブルの中身を格納する配列
 		ArrayList<Character> characters = new ArrayList<Character>();
-		System.out.println("地点B");
 
 		//取得したプロット情報のパラメーターをエンティティにセット
 		Character c = new Character();
@@ -78,7 +77,7 @@ public class CharacterJsonServlet extends HttpServlet {
 		//DBに接続
 		DataAccess da = null;
 		try {
-			System.out.println("地点E");
+			System.out.println("地点E" + no);
 			da = new DataAccess();
 			System.out.println(c.toString());
 
@@ -95,7 +94,7 @@ public class CharacterJsonServlet extends HttpServlet {
 			}
 
 			//登場人物sテーブルから全件抽出
-			characters = da.SelectCharacters(no);
+			characters = da.SelectCharacters(c.getPlot());
 
 			da.Close();
 		}
