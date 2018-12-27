@@ -64,8 +64,8 @@ public class CharacterJsonServlet extends HttpServlet {
 		c.setBirthday( (String)request.getParameter("birthday") );
 		c.setHeight( (String)request.getParameter("height") );
 		c.setWeight( (String)request.getParameter("weight") );
-		c.setFirstPerson( (String)request.getParameter("firstPerson") );
-		c.setSecondPerson( (String)request.getParameter("secondPerson") );
+		c.setFirstPerson( (String)request.getParameter("first_person") );
+		c.setSecondPerson( (String)request.getParameter("second_person") );
 		c.setBelongs( (String)request.getParameter("belongs") );
 		c.setSkill( (String)request.getParameter("skill") );
 		c.setProfile( (String)request.getParameter("profile") );
