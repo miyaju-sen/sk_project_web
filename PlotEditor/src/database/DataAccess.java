@@ -436,7 +436,7 @@ public class DataAccess extends Dao {
 					+ "personality = ?, "
 					+ "appearance = ?, "
 					+ "other = ? "
-					+ "WHERE = ?;";
+					+ "WHERE no = ?;";
 			this.pStmt = this.cn.prepareStatement(this._sql);
 
 			this.pStmt.setString(1, c.getPhonetic());
@@ -457,6 +457,7 @@ public class DataAccess extends Dao {
 			this.pStmt.setString(16, c.getPersonality());
 			this.pStmt.setString(17, c.getAppearance());
 			this.pStmt.setString(18, c.getOther());
+			this.pStmt.setInt(19 , c.getNo());
 
 			this.pStmt.executeUpdate();
 		}
