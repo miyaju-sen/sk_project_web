@@ -66,6 +66,9 @@ public class PlotJsonServlet extends HttpServlet {
 			if("".equals(no) && !"".equals( p.getTitle() ) ) {
 				da.InsertPlot(p);
 				newId = da.SelectLastInsert();
+
+				//ここでstagesにレコードを作成しておく
+				da.InsertStage(newId);
 			}
 			//UPDATE
 			else if(null != p.getTitle()){ //NULL回避

@@ -467,5 +467,28 @@ public class DataAccess extends Dao {
 		}
 	}
 
+	/**
+	 * 舞台情報新規登録
+	 * プロット新規作成直後に行う
+	 *
+	 * @param plotNo 作品Noの主キー
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void InsertStage(String plotNo) throws Exception, SQLException {
+		try {
+			this._sql = "INSERT INTO stages(plot) VALUES(?);";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, plotNo);
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
