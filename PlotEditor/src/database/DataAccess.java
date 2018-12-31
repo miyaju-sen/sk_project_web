@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entities.Character;
 import entities.Plot;
+import entities.Stage;
 
 /**
  * SQL文のクラス
@@ -228,6 +229,7 @@ public class DataAccess extends Dao {
 	/**
 	 * 登場人物一覧全件抽出
 	 *
+	 * @param plot 作品No
 	 * @return 登場人物一覧の情報が格納された配列
 	 * @throws Exception
 	 * @throws SQLException
@@ -263,6 +265,35 @@ public class DataAccess extends Dao {
 				c.setDeleted( rs.getBoolean("deleted") );
 
 				result.add(c);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * 舞台一覧全件抽出
+	 *
+	 * @param plot 作品No
+	 * @return 舞台一覧が格納された配列
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<Stage> SelectStages(int plot) throws Exception, SQLException {
+		String where = "plot = " + plot;
+		this.SelectWhere("stages", where);
+		ArrayList<Stage> result = new ArrayList<Stage>();
+		try {
+			Stage s = null;
+			while(rs.next()) {
+				s = new Stage();
+				s.setNo( rs.getInt("no") );
+				s.setPlot( rs.getString("plot") );
+				s.setStage( rs.getString("stage") );
+				result.add(s);
 			}
 			return result;
 		}
@@ -489,6 +520,30 @@ public class DataAccess extends Dao {
             throw e;
 		}
 	}
+
+	/**
+	 * 舞台情報更新
+	 *
+	 * @param s 舞台エンティティクラス
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void UpdateStage(Stage s) throws Exception, SQLException {
+		try {
+			this._sql = "UPDATE stages SET stage = ? WHERE no = ?;";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, s.getStage());
+			this.pStmt.setInt(2, s.getNo());
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }

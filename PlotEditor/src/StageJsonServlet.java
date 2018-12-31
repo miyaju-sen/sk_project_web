@@ -12,27 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.DataAccess;
-import entities.Plot;
+import entities.Stage;
 
 /*-----------------------------------------------------*/
 /*                                                     */
-/* plotsテーブル                                       */
-/* 新規作成、編集（更新）、全件抽出の処理を行う        */
-/* stagesテーブルへの新規作成も行う                    */
+/* stagesテーブル                                      */
+/* 編集（更新）、全件抽出の処理を行う                      */
 /*                                                     */
 /*-----------------------------------------------------*/
 
 /**
- * Servlet implementation class PlotJsonServlet
+ * Servlet implementation class StageJsonServlet
  */
-@WebServlet("/PlotJsonServlet")
-public class PlotJsonServlet extends HttpServlet {
+@WebServlet("/StageJsonServlet")
+public class StageJsonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlotJsonServlet() {
+    public StageJsonServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,41 +44,25 @@ public class PlotJsonServlet extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("utf-8");
 
-		//新規登録した、あるいは更新したレコードの主キーを格納する変数
-		String newId = "nothing";
+		//抽出したstagesテーブルの中身を格納する配列
+		ArrayList<Stage> stages = new ArrayList<Stage>();
 
-		//抽出したplotsテーブルの中身を格納する配列
-		ArrayList<Plot> plots = new ArrayList<Plot>();
-
-		//取得したプロット情報のパラメーターをエンティティにセット
-		Plot p = new Plot();
-		String no = (String)request.getParameter("no");
-		p.setTitle( (String)request.getParameter("title") );
-		p.setSlogan( (String)request.getParameter("slogan") );
-		p.setSummary( (String)request.getParameter("summary") );
+		//取得した舞台情報のパラメーターをエンティティにセット
+		Stage s = new Stage();
+		s.setNo( (String)request.getParameter("no") );
+		s.setPlot( (String)request.getParameter("plot") );
+		s.setStage( (String)request.getParameter("stage") );
 
 		//DBに接続
 		DataAccess da = null;
 		try {
 			da = new DataAccess();
 
-			//plotsテーブルに新規登録（noが空の場合は新規登録の意）
-			if("".equals(no) && !"".equals( p.getTitle() ) ) {
-				da.InsertPlot(p);
-				newId = da.SelectLastInsert();
-
-				//ここでstagesにレコードを作成しておく
-				da.InsertStage(newId);
-			}
 			//UPDATE
-			else if(null != p.getTitle()){ //NULL回避
-				p.setNo(no);
-				da.UpdatePlot(p);
-				newId = no;
-			}
+			da.UpdateStage(s);
 
-			//plotsテーブルから全件抽出
-			plots = da.SelectPlots();
+			//stagesテーブルから全件抽出
+			stages = da.SelectStages( s.getPlot() );
 
 			da.Close();
 		}
@@ -92,9 +75,8 @@ public class PlotJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.setAttribute("NEWID", newId);
-		request.setAttribute("PLOTS", plots);
-		RequestDispatcher rd = request.getRequestDispatcher("plots_json.jsp");
+		request.setAttribute("STAGES", stages);
+		RequestDispatcher rd = request.getRequestDispatcher("stages_json.jsp");
 		rd.forward(request, response);
 	}
 
@@ -105,4 +87,5 @@ public class PlotJsonServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }

@@ -36,7 +36,9 @@ public class Stage {
 	 * @param no 主キー
 	 */
 	public void setNo(String no) {
-		this._no = Integer.valueOf(no);
+		if(null != no) {
+			this._no = Integer.valueOf(no);
+		}
 	}
 	/**
 	 * 作品Noのセッター
@@ -50,7 +52,9 @@ public class Stage {
 	 * @param plot 作品No
 	 */
 	public void setPlot(String plot) {
-		this._plot.setNo(plot);
+		if(null != plot) {
+			this._plot.setNo(plot);
+		}
 	}
 	/**
 	 * 内容のセッター
