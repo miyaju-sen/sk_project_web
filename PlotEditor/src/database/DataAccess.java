@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entities.Character;
+import entities.Parlance;
 import entities.Plot;
 import entities.Stage;
 
@@ -302,6 +303,38 @@ public class DataAccess extends Dao {
             throw e;
 		}
 	}
+
+	/**
+	 * 設定・用語一覧全件抽出
+	 *
+	 * @param plot 作品No
+	 * @return 設定・用語一覧が格納された配列
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<Parlance> SelectParlances(int plot) throws Exception, SQLException {
+		String where = "deleted = false AND plot = " + plot;
+		this.SelectWhere("stages", where);
+		ArrayList<Parlance> result = new ArrayList<Parlance>();
+		try {
+			Parlance p = null;
+			while(rs.next()) {
+				p = new Parlance();
+				p.setNo( rs.getInt("no") );
+				p.setPlot( rs.getString("plot") );
+				p.setName( rs.getString("name") );
+				p.setExplanation( rs.getString("explanation") );
+				p.setDeleted( rs.getBoolean("deleted") );
+
+				result.add(p);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -535,6 +568,54 @@ public class DataAccess extends Dao {
 
 			this.pStmt.setString(1, s.getStage());
 			this.pStmt.setInt(2, s.getNo());
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * 設定・用語新規登録
+	 *
+	 * @param plotNo 作品Noの主キー
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void InsertParlance(Parlance p) throws Exception, SQLException {
+		try {
+			this._sql = "INSERT INTO parlances(plot, name, explanation) VALUES(?, ?, ?);";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setInt(1, p.getPlot());
+			this.pStmt.setString(2, p.getName());
+			this.pStmt.setString(3, p.getExplanation());
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * 設定・用語新規登録
+	 *
+	 * @param plotNo 作品Noの主キー
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void UpdateParlance(Parlance p) throws Exception, SQLException {
+		try {
+			this._sql = "UPDATE parlances SET name = ?, explanation = ? WHERE no = ?;";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, p.getName());
+			this.pStmt.setString(2, p.getExplanation());
+			this.pStmt.setInt(3, p.getNo());
 
 			this.pStmt.executeUpdate();
 		}
