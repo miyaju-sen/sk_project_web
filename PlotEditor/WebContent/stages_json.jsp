@@ -11,7 +11,7 @@
 		{
 			"no":"<%=stages.get(i).getNo() %>",
 			"plot":"<%=stages.get(i).getPlot() %>",
-			"stage":"<%=stages.get(i).getStage() %>",
+			"stage":"<%=stages.get(i).getStage() %>"
 		<% if(i != cnt) { %>
 		},
 		<% }else {%>

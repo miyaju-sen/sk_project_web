@@ -49,7 +49,7 @@ public class StageJsonServlet extends HttpServlet {
 
 		//取得した舞台情報のパラメーターをエンティティにセット
 		Stage s = new Stage();
-		s.setNo( (String)request.getParameter("no") );
+		String no = (String)request.getParameter("no");
 		s.setPlot( (String)request.getParameter("plot") );
 		s.setStage( (String)request.getParameter("stage") );
 
@@ -59,7 +59,11 @@ public class StageJsonServlet extends HttpServlet {
 			da = new DataAccess();
 
 			//UPDATE
-			da.UpdateStage(s);
+			if(!"".equals(no)) {
+				System.out.println("主キーは" + no);
+				s.setNo(no);
+				da.UpdateStage(s);
+			}
 
 			//stagesテーブルから全件抽出
 			stages = da.SelectStages( s.getPlot() );
