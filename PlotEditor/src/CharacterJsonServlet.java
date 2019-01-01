@@ -48,7 +48,7 @@ public class CharacterJsonServlet extends HttpServlet {
 		String newId = "nothing";
 		System.out.println("地点A");
 
-		//抽出したplotsテーブルの中身を格納する配列
+		//抽出したcharactersテーブルの中身を格納する配列
 		ArrayList<Character> characters = new ArrayList<Character>();
 
 		//取得したプロット情報のパラメーターをエンティティにセット
