@@ -92,7 +92,7 @@ public class ParlanceJsonServlet extends HttpServlet {
 
 		request.setAttribute("NEWID", newId);
 		request.setAttribute("PARLANCES", parlances);
-		RequestDispatcher rd = request.getRequestDispatcher("parlances_json.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("parlance_json.jsp");
 		rd.forward(request, response);
 	}
 

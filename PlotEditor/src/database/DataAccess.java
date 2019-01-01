@@ -314,7 +314,7 @@ public class DataAccess extends Dao {
 	 */
 	public ArrayList<Parlance> SelectParlances(int plot) throws Exception, SQLException {
 		String where = "deleted = false AND plot = " + plot;
-		this.SelectWhere("stages", where);
+		this.SelectWhere("parlances", where);
 		ArrayList<Parlance> result = new ArrayList<Parlance>();
 		try {
 			Parlance p = null;

@@ -1,7 +1,7 @@
 /CharacterJsonServlet.class
 /DeleteServlet.class
+/ParlanceJsonServlet.class
 /PlotJsonServlet.class
+/StageJsonServlet.class
 /database/
 /entities/
-/StageJsonServlet.class
-/ParlanceJsonServlet.class
