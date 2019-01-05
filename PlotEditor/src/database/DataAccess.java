@@ -667,9 +667,9 @@ public class DataAccess extends Dao {
 	}
 
 	/**
-	 * 設定・用語新規登録
+	 * 設定・用語更新
 	 *
-	 * @param plotNo 作品Noの主キー
+	 * @param p 設定・用語エンティティクラス
 	 * @throws Exception
 	 * @throws SQLException
 	 */
@@ -681,6 +681,55 @@ public class DataAccess extends Dao {
 			this.pStmt.setString(1, p.getName());
 			this.pStmt.setString(2, p.getExplanation());
 			this.pStmt.setInt(3, p.getNo());
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * 起承転結の内容新規登録
+	 * プロット新規作成直後に行う
+	 *
+	 * @param plotNo 作品No
+	 * @param ideaNo 起承転結の主キー
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void InsertIdea(String plotNo, int ideaNo) throws Exception, SQLException {
+		try {
+			this._sql = "INSERT INTO ideas(plot, idea, note) VALUES(?, ?, ?);";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, plotNo);
+			this.pStmt.setInt(2, ideaNo);
+			this.pStmt.setString(3, "");
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * 起承転結の内容更新
+	 *
+	 * @param i 起承転結エンティティクラス
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void UpdateIdea(Idea i) throws Exception, SQLException {
+		try {
+			this._sql = "UPDATE ideas SET note = ? WHERE no = ?;";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, i.getNote());
+			this.pStmt.setInt(2, i.getNo());
 
 			this.pStmt.executeUpdate();
 		}

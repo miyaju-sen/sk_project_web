@@ -68,8 +68,12 @@ public class PlotJsonServlet extends HttpServlet {
 				da.InsertPlot(p);
 				newId = da.SelectLastInsert();
 
-				//ここでstagesにレコードを作成しておく
+				//ここでstagesとideasにレコードを作成しておく
 				da.InsertStage(newId);
+				for(int i = 1; i <= 4; i++) {
+					//起承転結の四つ分新規作成
+					da.InsertIdea(newId, i);
+				}
 			}
 			//UPDATE
 			else if(null != p.getTitle()){ //NULL回避
