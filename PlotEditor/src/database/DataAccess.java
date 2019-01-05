@@ -541,10 +541,11 @@ public class DataAccess extends Dao {
 	 */
 	public void InsertStage(String plotNo) throws Exception, SQLException {
 		try {
-			this._sql = "INSERT INTO stages(plot) VALUES(?);";
+			this._sql = "INSERT INTO stages(plot, stage) VALUES(?, ?);";
 			this.pStmt = this.cn.prepareStatement(this._sql);
 
 			this.pStmt.setString(1, plotNo);
+			this.pStmt.setString(2, "");
 
 			this.pStmt.executeUpdate();
 		}
