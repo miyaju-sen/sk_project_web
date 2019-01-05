@@ -746,12 +746,12 @@ public class DataAccess extends Dao {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public void InsertStory(String idea) throws Exception, SQLException {
+	public void InsertStory(int idea) throws Exception, SQLException {
 		try {
 			this._sql = "INSERT INTO stories(idea, story) VALUES(?, ?);";
 			this.pStmt = this.cn.prepareStatement(this._sql);
 
-			this.pStmt.setString(1, idea);
+			this.pStmt.setInt(1, idea);
 			this.pStmt.setString(2, "");
 
 			this.pStmt.executeUpdate();

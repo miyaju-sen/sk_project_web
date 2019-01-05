@@ -12,27 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.DataAccess;
-import entities.Plot;
+import entities.Story;
 
 /*-----------------------------------------------------*/
 /*                                                     */
-/* plotsテーブル                                       */
+/* storiesテーブル                                     */
 /* 新規作成、編集（更新）、全件抽出の処理を行う        */
-/* stages・ideasテーブルへの新規作成も行う             */
 /*                                                     */
 /*-----------------------------------------------------*/
 
 /**
- * Servlet implementation class PlotJsonServlet
+ * Servlet implementation class StoryJsonServlet
  */
-@WebServlet("/PlotJsonServlet")
-public class PlotJsonServlet extends HttpServlet {
+@WebServlet("/StoryJsonServlet")
+public class StoryJsonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlotJsonServlet() {
+    public StoryJsonServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,42 +47,34 @@ public class PlotJsonServlet extends HttpServlet {
 		//新規登録した、あるいは更新したレコードの主キーを格納する変数
 		String newId = "nothing";
 
-		//抽出したplotsテーブルの中身を格納する配列
-		ArrayList<Plot> plots = new ArrayList<Plot>();
+		//抽出したstoriesテーブルの中身を格納する配列
+		ArrayList<Story> stories = new ArrayList<Story>();
 
-		//取得したプロット情報のパラメーターをエンティティにセット
-		Plot p = new Plot();
+		//取得したストーリー情報のパラメーターをエンティティにセット
+		Story s = new Story();
 		String no = (String)request.getParameter("no");
-		p.setTitle( (String)request.getParameter("title") );
-		p.setSlogan( (String)request.getParameter("slogan") );
-		p.setSummary( (String)request.getParameter("summary") );
+		s.setIdea( (String)request.getParameter("idea") );
+		s.setStory( (String)request.getParameter("story") );
 
 		//DBに接続
 		DataAccess da = null;
 		try {
 			da = new DataAccess();
 
-			//plotsテーブルに新規登録（noが空の場合は新規登録の意）
-			if("".equals(no) && !"".equals( p.getTitle() ) ) {
-				da.InsertPlot(p);
+			//新規登録
+			if("".equals(no) && !"".equals( s.getIdea() )) {
+				da.InsertStory( s.getIdea() );
 				newId = da.SelectLastInsert();
-
-				//ここでstagesとideasにレコードを作成しておく
-				da.InsertStage(newId);
-				for(int i = 1; i <= 4; i++) {
-					//起承転結の四つ分新規作成
-					da.InsertIdea(newId, i);
-				}
 			}
 			//UPDATE
-			else if(null != p.getTitle()){ //NULL回避
-				p.setNo(no);
-				da.UpdatePlot(p);
+			else if(null != s.getStory()){ //NULL回避
+				s.setNo(no);
+				da.UpdateStory(s);
 				newId = no;
 			}
 
-			//plotsテーブルから全件抽出
-			plots = da.SelectPlots();
+			//storiesテーブルから全件抽出
+			stories = da.SelectStories( s.getIdea() );
 
 			da.Close();
 		}
@@ -97,8 +88,8 @@ public class PlotJsonServlet extends HttpServlet {
 		}
 
 		request.setAttribute("NEWID", newId);
-		request.setAttribute("PLOTS", plots);
-		RequestDispatcher rd = request.getRequestDispatcher("plots_json.jsp");
+		request.setAttribute("STORIES", stories);
+		RequestDispatcher rd = request.getRequestDispatcher("stories_json.jsp");
 		rd.forward(request, response);
 	}
 
@@ -109,4 +100,5 @@ public class PlotJsonServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }
