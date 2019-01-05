@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entities.Character;
+import entities.Idea;
 import entities.Parlance;
 import entities.Plot;
 import entities.Stage;
+import entities.Story;
 
 /**
  * SQL文のクラス
@@ -327,6 +329,68 @@ public class DataAccess extends Dao {
 				p.setDeleted( rs.getBoolean("deleted") );
 
 				result.add(p);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * 起承転結の内容一覧全件抽出
+	 *
+	 * @param plot 作品No
+	 * @return 起承転結の内容一覧が格納された配列
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<Idea> SelectIdeas(int plot) throws Exception, SQLException {
+		String where = "plot = " + plot;
+		this.SelectWhere("ideas", where);
+		ArrayList<Idea> result = new ArrayList<Idea>();
+		try {
+			Idea i = null;
+			while(rs.next()) {
+				i = new Idea();
+				i.setNo( rs.getInt("no") );
+				i.setPlot( rs.getString("plot") );
+				i.setIdea( rs.getString("idea") );
+				i.setNote( rs.getString("note") );
+
+				result.add(i);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * ストーリー一覧全件抽出
+	 *
+	 * @param idea 起承転結の主キー
+	 * @return ストーリー一覧が格納された配列
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<Story> SelectStories(int idea) throws Exception, SQLException {
+		String where = "deleted = false AND idea = " + idea;
+		this.SelectWhere("stories", where);
+		ArrayList<Story> result = new ArrayList<Story>();
+		try {
+			Story s = null;
+			while(rs.next()) {
+				s = new Story();
+				s.setNo( rs.getInt("no") );
+				s.setIdea( rs.getString("idea") );
+				s.setStory( rs.getString("story") );
+				s.setDeleted( rs.getBoolean("deleted") );
+
+				result.add(s);
 			}
 			return result;
 		}

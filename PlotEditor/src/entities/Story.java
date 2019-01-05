@@ -52,7 +52,9 @@ public class Story {
 	 * @param idea 構想No
 	 */
 	public void setIdea(String idea) {
-		this._idea.setNo(idea);
+		if(null != idea) {
+			this._idea.setNo(idea);
+		}
 	}
 	/**
 	 * 内容のセッター
