@@ -695,7 +695,7 @@ public class DataAccess extends Dao {
 	 * プロット新規作成直後に行う
 	 *
 	 * @param plotNo 作品No
-	 * @param ideaNo 起承転結の主キー
+	 * @param ideaNo 起承転結No
 	 * @throws Exception
 	 * @throws SQLException
 	 */
@@ -739,6 +739,51 @@ public class DataAccess extends Dao {
 		}
 	}
 
+	/**
+	 * ストーリー新規登録
+	 *
+	 * @param idea 起承転結の主キー
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void InsertStory(String idea) throws Exception, SQLException {
+		try {
+			this._sql = "INSERT INTO stories(idea, story) VALUES(?, ?);";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, idea);
+			this.pStmt.setString(2, "");
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * ストーリー更新
+	 *
+	 * @param s ストーリーエンティティクラス
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void UpdateStory(Story s) throws Exception, SQLException {
+		try {
+			this._sql = "UPDATE stories SET story = ? WHERE no = ?;";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, s.getStory());
+			this.pStmt.setInt(2, s.getNo());
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
