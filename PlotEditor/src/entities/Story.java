@@ -12,6 +12,7 @@ public class Story {
 	 */
 	private int _no; //主キー
 	private Idea _idea; //構想No
+	private String _title; //タイトル
 	private String _story; //内容
 	private boolean _deleted; //削除フラグ
 
@@ -21,6 +22,7 @@ public class Story {
 	public Story() {
 		this._no = 0;
 		this._idea = new Idea();
+		this._title = "";
 		this._story = "";
 		this._deleted = false;
 	}
@@ -57,6 +59,13 @@ public class Story {
 		}
 	}
 	/**
+	 * タイトルのセッター
+	 * @param title タイトル
+	 */
+	public void setTitle(String title) {
+		this._title = title;
+	}
+	/**
 	 * 内容のセッター
 	 * @param story 内容
 	 */
@@ -85,6 +94,13 @@ public class Story {
 	 */
 	public int getIdea() {
 		return this._idea.getNo();
+	}
+	/**
+	 * タイトルのゲッター
+	 * @return タイトル
+	 */
+	public String getTitle() {
+		return this._title;
 	}
 	/**
 	 * 内容のゲッター

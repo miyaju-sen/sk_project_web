@@ -388,6 +388,7 @@ public class DataAccess extends Dao {
 				s = new Story();
 				s.setNo( rs.getInt("no") );
 				s.setIdea( rs.getString("idea") );
+				s.setTitle( rs.getString("title") );
 				s.setStory( rs.getString("story") );
 				s.setDeleted( rs.getBoolean("deleted") );
 
@@ -422,6 +423,7 @@ public class DataAccess extends Dao {
 				vi.setIdea( rs.getString("idea") );
 				vi.setNote( rs.getString("note") );
 				vi.setStoryNo( rs.getString("story_no") );
+				vi.setTitle( rs.getString("title") );
 				vi.setStory( rs.getString("story") );
 				vi.setDeleted( rs.getBoolean("deleted") );
 
@@ -806,11 +808,12 @@ public class DataAccess extends Dao {
 	 */
 	public void UpdateStory(Story s) throws Exception, SQLException {
 		try {
-			this._sql = "UPDATE stories SET story = ? WHERE no = ?;";
+			this._sql = "UPDATE stories SET title = ?, story = ? WHERE no = ?;";
 			this.pStmt = this.cn.prepareStatement(this._sql);
 
-			this.pStmt.setString(1, s.getStory());
-			this.pStmt.setInt(2, s.getNo());
+			this.pStmt.setString(1, s.getTitle());
+			this.pStmt.setString(2, s.getStory());
+			this.pStmt.setInt(3, s.getNo());
 
 			this.pStmt.executeUpdate();
 		}

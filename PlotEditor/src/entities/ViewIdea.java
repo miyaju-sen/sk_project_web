@@ -87,6 +87,13 @@ public class ViewIdea {
 		this._story.setNo(no);
 	}
 	/**
+	 * タイトルのセッター
+	 * @param title タイトル
+	 */
+	public void setTitle(String title) {
+		this._story.setTitle(title);
+	}
+	/**
 	 * ストーリーのセッター
 	 * @param story ストーリー
 	 */
@@ -136,6 +143,13 @@ public class ViewIdea {
 	 */
 	public int getStoryNo() {
 		return this._story.getNo();
+	}
+	/**
+	 * タイトルのゲッター
+	 * @return ゲッター
+	 */
+	public String getTitle() {
+		return this._story.getTitle();
 	}
 	/**
 	 * ストーリーのゲッター
