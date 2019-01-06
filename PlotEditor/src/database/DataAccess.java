@@ -9,6 +9,7 @@ import entities.Parlance;
 import entities.Plot;
 import entities.Stage;
 import entities.Story;
+import entities.ViewIdea;
 
 /**
  * SQL文のクラス
@@ -391,6 +392,40 @@ public class DataAccess extends Dao {
 				s.setDeleted( rs.getBoolean("deleted") );
 
 				result.add(s);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * v_ideasの一覧全件抽出
+	 *
+	 * @param plot 作品No
+	 * @return v_ideasの一覧が格納された配列
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<ViewIdea> SelectViewIdea(int plot) throws Exception, SQLException {
+		String where = "plot = " + plot;
+		this.SelectWhere("v_ideas", where);
+		ArrayList<ViewIdea> result = new ArrayList<ViewIdea>();
+		try {
+			ViewIdea vi = null;
+			while(rs.next()) {
+				vi = new ViewIdea();
+				vi.setIdeaNo( rs.getInt("idea_no") );
+				vi.setPlot( rs.getString("plot") );
+				vi.setIdea( rs.getString("idea") );
+				vi.setNote( rs.getString("note") );
+				vi.setStoryNo( rs.getString("story_no") );
+				vi.setStory( rs.getString("story") );
+				vi.setDeleted( rs.getBoolean("deleted") );
+
+				result.add(vi);
 			}
 			return result;
 		}

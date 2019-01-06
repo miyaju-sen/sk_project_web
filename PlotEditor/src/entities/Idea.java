@@ -12,7 +12,7 @@ public class Idea {
 	 */
 	private int _no; //主キー
 	private Plot _plot; //作品No
-	private String _idea; //起承転結
+	private int _idea; //起承転結
 	private String _note; //大まかな流れ
 
 	/**
@@ -21,7 +21,7 @@ public class Idea {
 	public Idea() {
 		this._no = 0;
 		this._plot = new Plot();
-		this._idea = "";
+		this._idea = 0;
 		this._note = "";
 	}
 
@@ -61,8 +61,17 @@ public class Idea {
 	 * 起承転結のセッター
 	 * @param idea 起承転結
 	 */
-	public void setIdea(String idea) {
+	public void setIdea(int idea) {
 		this._idea = idea;
+	}
+	/**
+	 * 起承転結のセッター
+	 * @param idea 起承転結
+	 */
+	public void setIdea(String idea) {
+		if(null != idea) {
+			this._idea = Integer.valueOf(idea);
+		}
 	}
 	/**
 	 * 大まかな流れのセッター
@@ -91,7 +100,7 @@ public class Idea {
 	 * 起承転結のゲッター
 	 * @return 起承転結
 	 */
-	public String getIdea() {
+	public int getIdea() {
 		return this._idea;
 	}
 	/**
