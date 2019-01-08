@@ -62,7 +62,7 @@ public class StoryJsonServlet extends HttpServlet {
 			da = new DataAccess();
 
 			//新規登録
-			if("".equals(no) && !"".equals( s.getIdea() )) {
+			if("".equals(no) && 0 != s.getIdea()) {
 				da.InsertStory( s.getIdea() );
 				newId = da.SelectLastInsert();
 			}
