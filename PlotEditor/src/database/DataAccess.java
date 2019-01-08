@@ -371,6 +371,38 @@ public class DataAccess extends Dao {
 	}
 
 	/**
+	 * 起承転結の内どれかを抽出
+	 *
+	 * @param plot 作品No
+	 * @param idea 起承転結番号
+	 * @return 起承転結の内容一覧が格納された配列
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<Idea> SelectIdeas(int plot, int idea) throws Exception, SQLException {
+		String where = "plot = " + plot + " AND idea = " + idea;
+		this.SelectWhere("ideas", where);
+		ArrayList<Idea> result = new ArrayList<Idea>();
+		try {
+			Idea i = null;
+			while(rs.next()) {
+				i = new Idea();
+				i.setNo( rs.getInt("no") );
+				i.setPlot( rs.getString("plot") );
+				i.setIdea( rs.getString("idea") );
+				i.setNote( rs.getString("note") );
+
+				result.add(i);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
 	 * ストーリー一覧全件抽出
 	 *
 	 * @param idea 起承転結の主キー
@@ -410,8 +442,8 @@ public class DataAccess extends Dao {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public ArrayList<ViewIdea> SelectViewIdea(int plot) throws Exception, SQLException {
-		String where = "plot = " + plot;
+	public ArrayList<ViewIdea> SelectViewIdea(int plot, int idea) throws Exception, SQLException {
+		String where = "plot = " + plot + " AND idea = " + idea + " AND deleted = false";
 		this.SelectWhere("v_ideas", where);
 		ArrayList<ViewIdea> result = new ArrayList<ViewIdea>();
 		try {

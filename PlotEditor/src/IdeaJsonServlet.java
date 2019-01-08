@@ -16,7 +16,7 @@ import entities.Idea;
 
 /*-----------------------------------------------------*/
 /*                                                     */
-/* ideasテーブル                                       */
+/* v_ideasテーブル                                     */
 /* 編集（更新）、全件抽出の処理を行う                  */
 /*                                                     */
 /*-----------------------------------------------------*/
@@ -65,7 +65,7 @@ public class IdeaJsonServlet extends HttpServlet {
 				da.UpdateIdea(i);
 			}
 
-			//ideasテーブルから全件抽出
+			//ideasテーブルから全件抽出 TODO:ストーリーNoの有無でViewからかideasからかを判断
 			ideas = da.SelectIdeas( i.getPlot() );
 
 			da.Close();
