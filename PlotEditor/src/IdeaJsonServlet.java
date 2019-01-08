@@ -65,7 +65,7 @@ public class IdeaJsonServlet extends HttpServlet {
 				da.UpdateIdea(i);
 			}
 
-			//ideasテーブルから全件抽出 TODO:ストーリーNoの有無でViewからかideasからかを判断
+			//ideasテーブルから全件抽出 TODO:ストーリーNo
 			ideas = da.SelectIdeas( i.getPlot() );
 
 			da.Close();
