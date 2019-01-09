@@ -9,7 +9,7 @@
 	"ideas":[
 		<% for(int i = 0; i < viewIdeas.size(); i++) { %>
 		{
-			"ideaNo":"<%=viewIdeas.get(i).getIdeaNo() %>",
+			"idea_no":"<%=viewIdeas.get(i).getIdeaNo() %>",
 			"plot":"<%=viewIdeas.get(i).getPlot() %>",
 			"idea":"<%=viewIdeas.get(i).getIdea() %>",
 			"note":"<%=viewIdeas.get(i).getNote() %>",
