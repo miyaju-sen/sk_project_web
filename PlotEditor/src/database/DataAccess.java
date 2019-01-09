@@ -436,14 +436,15 @@ public class DataAccess extends Dao {
 
 	/**
 	 * v_ideasの一覧全件抽出
+	 * ストーリーNoがある場合にしか呼び出されない
 	 *
 	 * @param plot 作品No
 	 * @return v_ideasの一覧が格納された配列
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public ArrayList<ViewIdea> SelectViewIdea(int plot, int idea) throws Exception, SQLException {
-		String where = "plot = " + plot + " AND idea = " + idea + " AND deleted = false";
+	public ArrayList<ViewIdea> SelectViewIdea(int storyNo) throws Exception, SQLException {
+		String where = "story_no = " + storyNo + " AND deleted = false";
 		this.SelectWhere("v_ideas", where);
 		ArrayList<ViewIdea> result = new ArrayList<ViewIdea>();
 		try {
