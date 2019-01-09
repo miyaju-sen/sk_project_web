@@ -60,8 +60,16 @@ public class IdeaJsonServlet extends HttpServlet {
 		Idea i = new Idea();
 		String no = (String)request.getParameter("no");
 		i.setPlot( (String)request.getParameter("plot") );
-		i.setIdea( (String)request.getParameter("idea") );
+		String idea = (String)request.getParameter("idea");
 		i.setNote( (String)request.getParameter("note") );
+
+		//取得できなかった場合
+		if(null == no) {
+			no = "";
+		}
+		if(null == idea) {
+			i.setIdea("");
+		}
 
 		//DBに接続
 		DataAccess da = null;
@@ -70,6 +78,7 @@ public class IdeaJsonServlet extends HttpServlet {
 
 			//UPDATE
 			if(!"".equals(no)) {
+				System.out.println("*********" + no);
 				i.setNo(no);
 				da.UpdateIdea(i);
 			}

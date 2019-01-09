@@ -39,7 +39,7 @@ public class Idea {
 	 * @param no 主キー
 	 */
 	public void setNo(String no) {
-		if(null != no) {
+		if(!"".equals(no)) {
 			this._no = Integer.valueOf(no);
 		}
 	}
@@ -71,7 +71,7 @@ public class Idea {
 	 * @param idea 起承転結
 	 */
 	public void setIdea(String idea) {
-		if(null != idea) {
+		if(!"".equals(idea)) {
 			this._idea = Integer.valueOf(idea);
 		}
 	}
