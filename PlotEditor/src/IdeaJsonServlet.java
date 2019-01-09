@@ -49,6 +49,9 @@ public class IdeaJsonServlet extends HttpServlet {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		ArrayList<ViewIdea> vIdeas = new ArrayList<ViewIdea>();
 
+		//遷移先
+		String jsp = "";
+
 		//取得した起承転結の内容のパラメーターをエンティティにセット
 		Idea i = new Idea();
 		String no = (String)request.getParameter("no");
@@ -72,10 +75,12 @@ public class IdeaJsonServlet extends HttpServlet {
 			if(null == storyNo) {
 				ideas = da.SelectIdeas( i.getPlot() );
 				request.setAttribute("IDEAS", ideas);
+				jsp = "ideas_json.jsp";
 			}
 			else {
 				vIdeas = da.SelectViewIdea(storyNo);
 				request.setAttribute("IDEAS", vIdeas);
+				jsp = "view_ideas_json.jsp";
 			}
 
 			da.Close();
@@ -89,7 +94,7 @@ public class IdeaJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("ideas_json.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(jsp);
 		rd.forward(request, response);
 	}
 
