@@ -2,7 +2,7 @@
 <%@ page import="entities.ViewIdea" %>
 <%@ page import="java.util.*" %>
 <%
-	ArrayList<ViewIdea> viewIdeas = (ArrayList<ViewIdea>)request.getAttribute("VIEWIDEAS");
+	ArrayList<ViewIdea> viewIdeas = (ArrayList<ViewIdea>)request.getAttribute("IDEAS");
 	int cnt = viewIdeas.size() - 1;
 %>
 {
