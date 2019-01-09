@@ -72,7 +72,7 @@ public class IdeaJsonServlet extends HttpServlet {
 			}
 
 			//ideasテーブルから全件抽出
-			if(null == storyNo) {
+			if("".equals(storyNo)) {
 				ideas = da.SelectIdeas( i.getPlot() );
 				request.setAttribute("IDEAS", ideas);
 				jsp = "ideas_json.jsp";
