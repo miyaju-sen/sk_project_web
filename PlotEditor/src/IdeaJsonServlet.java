@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.DataAccess;
 import entities.Idea;
+import entities.Story;
 import entities.ViewIdea;
 
 /*-----------------------------------------------------*/
@@ -52,13 +53,15 @@ public class IdeaJsonServlet extends HttpServlet {
 		//遷移先
 		String jsp = "";
 
+		//ストーリーがあるか否か
+		String storyFlag = "";
+
 		//取得した起承転結の内容のパラメーターをエンティティにセット
 		Idea i = new Idea();
 		String no = (String)request.getParameter("no");
 		i.setPlot( (String)request.getParameter("plot") );
 		i.setIdea( (String)request.getParameter("idea") );
 		i.setNote( (String)request.getParameter("note") );
-		String storyNo = (String)request.getParameter("storyNo");
 
 		//DBに接続
 		DataAccess da = null;
@@ -71,17 +74,40 @@ public class IdeaJsonServlet extends HttpServlet {
 				da.UpdateIdea(i);
 			}
 
-			//ideasテーブルから全件抽出
-			if("".equals(storyNo)) {
+			//storiesにデータがあるか否か
+			ArrayList<Story> stories = new ArrayList<Story>();
+			stories = da.SelectStories( i.getIdea() );
+			System.out.println("ストーリー" + stories);
+			if(0 == stories.size()) {
+				//ideasテーブルから全件抽出
 				ideas = da.SelectIdeas( i.getPlot() );
 				request.setAttribute("IDEAS", ideas);
+
 				jsp = "ideas_json.jsp";
+				storyFlag = "false";
 			}
+			//v_ideasテーブルから全件抽出
 			else {
-				vIdeas = da.SelectViewIdea(storyNo);
+				vIdeas = da.SelectViewIdea( i.getPlot(), i.getIdea() );
 				request.setAttribute("IDEAS", vIdeas);
+
 				jsp = "view_ideas_json.jsp";
+				storyFlag = "true";
 			}
+
+			//ideasテーブルから全件抽出
+//			if(null == storyNo) {
+//				ideas = da.SelectIdeas( i.getPlot() );
+//				request.setAttribute("IDEAS", ideas);
+//
+//				jsp = "ideas_json.jsp";
+//				storyNo = "nothing";
+//			}
+//			else {
+//				vIdeas = da.SelectViewIdea(storyNo);
+//				request.setAttribute("IDEAS", vIdeas);
+//				jsp = "view_ideas_json.jsp";
+//			}
 
 			da.Close();
 		}
@@ -94,6 +120,7 @@ public class IdeaJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		request.setAttribute("FLAG", storyFlag);
 		RequestDispatcher rd = request.getRequestDispatcher(jsp);
 		rd.forward(request, response);
 	}

@@ -443,44 +443,8 @@ public class DataAccess extends Dao {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public ArrayList<ViewIdea> SelectViewIdea(int storyNo) throws Exception, SQLException {
-		String where = "story_no = " + storyNo + " AND deleted = false";
-		this.SelectWhere("v_ideas", where);
-		ArrayList<ViewIdea> result = new ArrayList<ViewIdea>();
-		try {
-			ViewIdea vi = null;
-			while(rs.next()) {
-				vi = new ViewIdea();
-				vi.setIdeaNo( rs.getInt("idea_no") );
-				vi.setPlot( rs.getString("plot") );
-				vi.setIdea( rs.getString("idea") );
-				vi.setNote( rs.getString("note") );
-				vi.setStoryNo( rs.getString("story_no") );
-				vi.setTitle( rs.getString("title") );
-				vi.setStory( rs.getString("story") );
-				vi.setDeleted( rs.getBoolean("deleted") );
-
-				result.add(vi);
-			}
-			return result;
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-            throw e;
-		}
-	}
-
-	/**
-	 * v_ideasの一覧全件抽出
-	 * ストーリーNoがある場合にしか呼び出されない
-	 *
-	 * @param plot 作品No
-	 * @return v_ideasの一覧が格納された配列
-	 * @throws Exception
-	 * @throws SQLException
-	 */
-	public ArrayList<ViewIdea> SelectViewIdea(String storyNo) throws Exception, SQLException {
-		String where = "story_no = " + storyNo + " AND deleted = false";
+	public ArrayList<ViewIdea> SelectViewIdea(int plot, int idea) throws Exception, SQLException {
+		String where = "plot = " + plot + " AND idea = " + idea + " AND deleted = false";
 		this.SelectWhere("v_ideas", where);
 		ArrayList<ViewIdea> result = new ArrayList<ViewIdea>();
 		try {

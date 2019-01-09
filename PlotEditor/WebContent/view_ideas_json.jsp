@@ -2,10 +2,12 @@
 <%@ page import="entities.ViewIdea" %>
 <%@ page import="java.util.*" %>
 <%
+	String storyFlag = (String)request.getAttribute("FLAG");
 	ArrayList<ViewIdea> viewIdeas = (ArrayList<ViewIdea>)request.getAttribute("IDEAS");
 	int cnt = viewIdeas.size() - 1;
 %>
 {
+	"storyFlag":"<%=storyFlag %>",
 	"ideas":[
 		<% for(int i = 0; i < viewIdeas.size(); i++) { %>
 		{

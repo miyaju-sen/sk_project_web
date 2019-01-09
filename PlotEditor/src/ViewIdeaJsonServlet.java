@@ -63,7 +63,7 @@ public class ViewIdeaJsonServlet extends HttpServlet {
 			da = new DataAccess();
 
 			//v_ideasテーブルから全件抽出
-			viewIdeas = da.SelectViewIdea( vi.getStoryNo() );
+//			viewIdeas = da.SelectViewIdea(  );
 
 			da.Close();
 		}
