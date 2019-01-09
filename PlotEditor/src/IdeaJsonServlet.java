@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.DataAccess;
 import entities.Idea;
+import entities.ViewIdea;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -46,6 +47,7 @@ public class IdeaJsonServlet extends HttpServlet {
 
 		//抽出したideasテーブルの中身を格納する配列
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
+		ArrayList<ViewIdea> vIdeas = new ArrayList<ViewIdea>();
 
 		//取得した起承転結の内容のパラメーターをエンティティにセット
 		Idea i = new Idea();
@@ -53,6 +55,7 @@ public class IdeaJsonServlet extends HttpServlet {
 		i.setPlot( (String)request.getParameter("plot") );
 		i.setIdea( (String)request.getParameter("idea") );
 		i.setNote( (String)request.getParameter("note") );
+		String storyNo = (String)request.getParameter("storyNo");
 
 		//DBに接続
 		DataAccess da = null;
@@ -66,7 +69,14 @@ public class IdeaJsonServlet extends HttpServlet {
 			}
 
 			//ideasテーブルから全件抽出
-			ideas = da.SelectIdeas( i.getPlot() );
+			if(null == storyNo) {
+				ideas = da.SelectIdeas( i.getPlot() );
+				request.setAttribute("IDEAS", ideas);
+			}
+			else {
+				vIdeas = da.SelectViewIdea(storyNo);
+				request.setAttribute("IDEAS", vIdeas);
+			}
 
 			da.Close();
 		}
@@ -79,7 +89,6 @@ public class IdeaJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.setAttribute("IDEAS", ideas);
 		RequestDispatcher rd = request.getRequestDispatcher("ideas_json.jsp");
 		rd.forward(request, response);
 	}

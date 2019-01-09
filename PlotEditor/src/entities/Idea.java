@@ -39,7 +39,9 @@ public class Idea {
 	 * @param no 主キー
 	 */
 	public void setNo(String no) {
-		this._no = Integer.valueOf(no);
+		if(null != no) {
+			this._no = Integer.valueOf(no);
+		}
 	}
 	/**
 	 * 作品Noのセッター
