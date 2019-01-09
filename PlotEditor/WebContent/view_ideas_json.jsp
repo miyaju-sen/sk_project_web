@@ -6,10 +6,10 @@
 	int cnt = viewIdeas.size() - 1;
 %>
 {
-	"viewIdeas":[
+	"ideas":[
 		<% for(int i = 0; i < viewIdeas.size(); i++) { %>
 		{
-			"no":"<%=viewIdeas.get(i).getIdeaNo() %>",
+			"ideaNo":"<%=viewIdeas.get(i).getIdeaNo() %>",
 			"plot":"<%=viewIdeas.get(i).getPlot() %>",
 			"idea":"<%=viewIdeas.get(i).getIdea() %>",
 			"note":"<%=viewIdeas.get(i).getNote() %>",
