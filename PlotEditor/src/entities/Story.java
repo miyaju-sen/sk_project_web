@@ -40,7 +40,9 @@ public class Story {
 	 * @param no 主キー
 	 */
 	public void setNo(String no) {
-		this._no = Integer.valueOf(no);
+		if(null != no) {
+			this._no = Integer.valueOf(no);
+		}
 	}
 	/**
 	 * 構想Noのセッター

@@ -120,7 +120,7 @@ public class ViewIdea {
 	 * 作品Noのゲッター
 	 * @return 作品No
 	 */
-	public int getPlotNo() {
+	public int getPlot() {
 		return this._idea.getPlot();
 	}
 	/**
