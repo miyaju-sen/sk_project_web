@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.DataAccess;
 import entities.Idea;
-import entities.Story;
 import entities.ViewIdea;
 
 /*-----------------------------------------------------*/
@@ -83,11 +82,9 @@ public class IdeaJsonServlet extends HttpServlet {
 				da.UpdateIdea(i);
 			}
 
-			//storiesにデータがあるか否か
-			ArrayList<Story> stories = new ArrayList<Story>();
-			stories = da.SelectStories( i.getIdea() );
-			System.out.println("ストーリー" + stories);
-			if(0 == stories.size()) {
+			//v_ideasにデータがあるか否か
+			vIdeas = da.SelectViewIdea( i.getPlot() );
+			if(0 == vIdeas.size()) {
 				//ideasテーブルから全件抽出
 				ideas = da.SelectIdeas( i.getPlot() );
 				request.setAttribute("IDEAS", ideas);
@@ -95,28 +92,14 @@ public class IdeaJsonServlet extends HttpServlet {
 				jsp = "ideas_json.jsp";
 				storyFlag = "false";
 			}
-			//v_ideasテーブルから全件抽出
+			//v_ideasテーブルの情報を送信
 			else {
-				vIdeas = da.SelectViewIdea( i.getPlot(), i.getIdea() );
+//				vIdeas = da.SelectViewIdea( i.getPlot(), i.getIdea() );
 				request.setAttribute("IDEAS", vIdeas);
 
 				jsp = "view_ideas_json.jsp";
 				storyFlag = "true";
 			}
-
-			//ideasテーブルから全件抽出
-//			if(null == storyNo) {
-//				ideas = da.SelectIdeas( i.getPlot() );
-//				request.setAttribute("IDEAS", ideas);
-//
-//				jsp = "ideas_json.jsp";
-//				storyNo = "nothing";
-//			}
-//			else {
-//				vIdeas = da.SelectViewIdea(storyNo);
-//				request.setAttribute("IDEAS", vIdeas);
-//				jsp = "view_ideas_json.jsp";
-//			}
 
 			da.Close();
 		}

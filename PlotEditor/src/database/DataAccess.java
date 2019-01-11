@@ -436,9 +436,9 @@ public class DataAccess extends Dao {
 
 	/**
 	 * v_ideasの一覧全件抽出
-	 * ストーリーNoがある場合にしか呼び出されない
 	 *
 	 * @param plot 作品No
+	 * @param idea 起承転結番号
 	 * @return v_ideasの一覧が格納された配列
 	 * @throws Exception
 	 * @throws SQLException
@@ -472,7 +472,6 @@ public class DataAccess extends Dao {
 
 	/**
 	 * v_ideasの一覧全件抽出
-	 * ストーリーNoがある場合にしか呼び出されない
 	 *
 	 * @param plot 作品No
 	 * @return v_ideasの一覧が格納された配列
