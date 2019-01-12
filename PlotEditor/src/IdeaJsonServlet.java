@@ -52,8 +52,8 @@ public class IdeaJsonServlet extends HttpServlet {
 		//遷移先
 		String jsp = "";
 
-		//ストーリーがあるか否か
-		String storyFlag = "";
+		//ストーリーがあればtrue、なければfalseと格納（デフォルト：false）
+		String storyFlag = "false";
 
 		//取得した起承転結の内容のパラメーターをエンティティにセット
 		Idea i = new Idea();
@@ -82,22 +82,13 @@ public class IdeaJsonServlet extends HttpServlet {
 				da.UpdateIdea(i);
 			}
 
-			//v_ideasにデータがあるか否か
+			//ideasからデータを抽出（指定したプロット内の起承転結情報が全て抽出される）
+			ideas = da.SelectIdeas( i.getPlot() );
+
+			//v_ideasからデータを抽出（構想Noではなく作品Noでストーリーを抽出できる）
 			vIdeas = da.SelectViewIdea( i.getPlot() );
-			if(0 == vIdeas.size()) {
-				//ideasテーブルから全件抽出
-				ideas = da.SelectIdeas( i.getPlot() );
-				request.setAttribute("IDEAS", ideas);
-
-				jsp = "ideas_json.jsp";
-				storyFlag = "false";
-			}
-			//v_ideasテーブルの情報を送信
-			else {
-//				vIdeas = da.SelectViewIdea( i.getPlot(), i.getIdea() );
-				request.setAttribute("IDEAS", vIdeas);
-
-				jsp = "view_ideas_json.jsp";
+			//データがあればstoryFlagにtrueと格納
+			if(0 != vIdeas.size()) {
 				storyFlag = "true";
 			}
 
@@ -112,8 +103,10 @@ public class IdeaJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		request.setAttribute("IDEAS", ideas);
+		request.setAttribute("VIDEAS", vIdeas);
 		request.setAttribute("FLAG", storyFlag);
-		RequestDispatcher rd = request.getRequestDispatcher(jsp);
+		RequestDispatcher rd = request.getRequestDispatcher("ideas_json.jsp");
 		rd.forward(request, response);
 	}
 
