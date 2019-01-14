@@ -371,16 +371,15 @@ public class DataAccess extends Dao {
 	}
 
 	/**
-	 * 起承転結の内どれかを抽出
+	 * 起承転結の内容一覧全件抽出
 	 *
 	 * @param plot 作品No
-	 * @param idea 起承転結番号
 	 * @return 起承転結の内容一覧が格納された配列
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public ArrayList<Idea> SelectIdeas(int plot, int idea) throws Exception, SQLException {
-		String where = "plot = " + plot + " AND idea = " + idea;
+	public ArrayList<Idea> SelectIdeas(String plot) throws Exception, SQLException {
+		String where = "plot = " + plot;
 		this.SelectWhere("ideas", where);
 		ArrayList<Idea> result = new ArrayList<Idea>();
 		try {
@@ -438,13 +437,12 @@ public class DataAccess extends Dao {
 	 * v_ideasの一覧全件抽出
 	 *
 	 * @param plot 作品No
-	 * @param idea 起承転結番号
 	 * @return v_ideasの一覧が格納された配列
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public ArrayList<ViewIdea> SelectViewIdea(int plot, int idea) throws Exception, SQLException {
-		String where = "plot = " + plot + " AND idea = " + idea + " AND deleted = false";
+	public ArrayList<ViewIdea> SelectViewIdea(int plot) throws Exception, SQLException {
+		String where = "plot = " + plot + " AND deleted = false";
 		this.SelectWhere("v_ideas", where);
 		ArrayList<ViewIdea> result = new ArrayList<ViewIdea>();
 		try {
@@ -478,7 +476,7 @@ public class DataAccess extends Dao {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public ArrayList<ViewIdea> SelectViewIdea(int plot) throws Exception, SQLException {
+	public ArrayList<ViewIdea> SelectViewIdea(String plot) throws Exception, SQLException {
 		String where = "plot = " + plot + " AND deleted = false";
 		this.SelectWhere("v_ideas", where);
 		ArrayList<ViewIdea> result = new ArrayList<ViewIdea>();
@@ -853,13 +851,14 @@ public class DataAccess extends Dao {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public void InsertStory(int idea) throws Exception, SQLException {
+	public void InsertStory(Story s) throws Exception, SQLException {
 		try {
-			this._sql = "INSERT INTO stories(idea, story) VALUES(?, ?);";
+			this._sql = "INSERT INTO stories(idea, title, story) VALUES(?, ?, ?);";
 			this.pStmt = this.cn.prepareStatement(this._sql);
 
-			this.pStmt.setInt(1, idea);
-			this.pStmt.setString(2, "");
+			this.pStmt.setInt(1, s.getIdea());
+			this.pStmt.setString(2, s.getTitle());
+			this.pStmt.setString(3, s.getStory());
 
 			this.pStmt.executeUpdate();
 		}

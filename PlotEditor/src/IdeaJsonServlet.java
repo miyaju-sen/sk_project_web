@@ -49,12 +49,6 @@ public class IdeaJsonServlet extends HttpServlet {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		ArrayList<ViewIdea> vIdeas = new ArrayList<ViewIdea>();
 
-		//遷移先
-		String jsp = "";
-
-		//ストーリーがあればtrue、なければfalseと格納（デフォルト：false）
-		String storyFlag = "false";
-
 		//取得した起承転結の内容のパラメーターをエンティティにセット
 		Idea i = new Idea();
 		String no = (String)request.getParameter("no");
@@ -87,10 +81,6 @@ public class IdeaJsonServlet extends HttpServlet {
 
 			//v_ideasからデータを抽出（構想Noではなく作品Noでストーリーを抽出できる）
 			vIdeas = da.SelectViewIdea( i.getPlot() );
-			//データがあればstoryFlagにtrueと格納
-			if(0 != vIdeas.size()) {
-				storyFlag = "true";
-			}
 
 			da.Close();
 		}
@@ -105,7 +95,6 @@ public class IdeaJsonServlet extends HttpServlet {
 
 		request.setAttribute("IDEAS", ideas);
 		request.setAttribute("VIDEAS", vIdeas);
-		request.setAttribute("FLAG", storyFlag);
 		RequestDispatcher rd = request.getRequestDispatcher("ideas_json.jsp");
 		rd.forward(request, response);
 	}

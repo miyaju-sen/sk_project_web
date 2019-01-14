@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.DataAccess;
+import entities.Idea;
 import entities.Story;
+import entities.ViewIdea;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -44,16 +46,16 @@ public class StoryJsonServlet extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("utf-8");
 
-		//新規登録した、あるいは更新したレコードの主キーを格納する変数
-		String newId = "nothing";
-
-		//抽出したstoriesテーブルの中身を格納する配列
-		ArrayList<Story> stories = new ArrayList<Story>();
+		//抽出したideasテーブルの中身を格納する配列
+		ArrayList<Idea> ideas = new ArrayList<Idea>();
+		ArrayList<ViewIdea> vIdeas = new ArrayList<ViewIdea>();
 
 		//取得したストーリー情報のパラメーターをエンティティにセット
 		Story s = new Story();
+		String plot = (String)request.getParameter("plot");
 		String no = (String)request.getParameter("no");
 		s.setIdea( (String)request.getParameter("idea") );
+		s.setTitle( (String)request.getParameter("title") );
 		s.setStory( (String)request.getParameter("story") );
 
 		//DBに接続
@@ -63,18 +65,20 @@ public class StoryJsonServlet extends HttpServlet {
 
 			//新規登録
 			if("".equals(no) && 0 != s.getIdea()) {
-				da.InsertStory( s.getIdea() );
-				newId = da.SelectLastInsert();
+				s.setNo(no);
+				da.InsertStory(s);
 			}
 			//UPDATE
 			else if(null != s.getStory()){ //NULL回避
 				s.setNo(no);
 				da.UpdateStory(s);
-				newId = no;
 			}
 
-			//storiesテーブルから全件抽出
-			stories = da.SelectStories( s.getIdea() );
+			//ideasからデータを抽出（指定したプロット内の起承転結情報が全て抽出される）
+			ideas = da.SelectIdeas(plot);
+
+			//v_ideasからデータを抽出（構想Noではなく作品Noでストーリーを抽出できる）
+			vIdeas = da.SelectViewIdea(plot);
 
 			da.Close();
 		}
@@ -87,9 +91,9 @@ public class StoryJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.setAttribute("NEWID", newId);
-		request.setAttribute("STORIES", stories);
-		RequestDispatcher rd = request.getRequestDispatcher("stories_json.jsp");
+		request.setAttribute("IDEAS", ideas);
+		request.setAttribute("VIDEAS", vIdeas);
+		RequestDispatcher rd = request.getRequestDispatcher("ideas_json.jsp");
 		rd.forward(request, response);
 	}
 
