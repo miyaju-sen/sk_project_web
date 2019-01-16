@@ -40,7 +40,7 @@ public class Story {
 	 * @param no 主キー
 	 */
 	public void setNo(String no) {
-		if(null != no) {
+		if(!"".equals(no)) {
 			this._no = Integer.valueOf(no);
 		}
 	}

@@ -58,6 +58,11 @@ public class StoryJsonServlet extends HttpServlet {
 		s.setTitle( (String)request.getParameter("title") );
 		s.setStory( (String)request.getParameter("story") );
 
+		//取得できなかった場合
+		if(null == no) {
+			no = "";
+		}
+
 		//DBに接続
 		DataAccess da = null;
 		try {
