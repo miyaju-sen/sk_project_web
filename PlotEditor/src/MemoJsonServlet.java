@@ -14,6 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import database.DataAccess;
 import entities.Memo;
 
+/*-----------------------------------------------------*/
+/*                                                     */
+/* v_memosテーブル                                     */
+/* 新規登録、編集（更新）、全件抽出の処理を行う        */
+/*                                                     */
+/*-----------------------------------------------------*/
+
 /**
  * Servlet implementation class MemoJsonServlet
  */
@@ -40,6 +47,9 @@ public class MemoJsonServlet extends HttpServlet {
 		//抽出したmemosテーブルの中身を格納する配列
 		ArrayList<Memo> memos = new ArrayList<Memo>();
 
+		//新規登録した、あるいは更新したレコードの主キーを格納する変数
+		String newId = "nothing";
+
 		//取得したメモ情報のパラメーターをエンティティにセット
 		Memo m = new Memo();
 		String no = (String)request.getParameter("no");
@@ -56,14 +66,20 @@ public class MemoJsonServlet extends HttpServlet {
 		try {
 			da = new DataAccess();
 
+			//INSERT
+			if("".equals(no) && !"".equals( m.getNote() )) {
+				da.InsertMemo(m);
+				newId = da.SelectLastInsert();
+			}
 			//UPDATE
-			if(!"".equals(no)) {
+			else if(null != m.getNote()){ //NULL回避
 				m.setNo(no);
-				da.UpdateIdea(i);
+				da.UpdateMemo(m);
+				newId = no;
 			}
 
 			//memosからデータを抽出
-			memos = da.SelectIdeas( i.getPlot() );
+			memos = da.SelectMemos( m.getPlot() );
 
 			da.Close();
 		}
@@ -76,9 +92,8 @@ public class MemoJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.setAttribute("IDEAS", ideas);
-		request.setAttribute("VIDEAS", vIdeas);
-		RequestDispatcher rd = request.getRequestDispatcher("ideas_json.jsp");
+		request.setAttribute("MEMOS", memos);
+		RequestDispatcher rd = request.getRequestDispatcher("memos_json.jsp");
 		rd.forward(request, response);
 	}
 
