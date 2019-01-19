@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entities.Character;
 import entities.Idea;
+import entities.Memo;
 import entities.Parlance;
 import entities.Plot;
 import entities.Stage;
@@ -502,6 +503,66 @@ public class DataAccess extends Dao {
             throw e;
 		}
 	}
+
+	/**
+	 * メモの内容一覧全件抽出
+	 *
+	 * @param plot 作品No
+	 * @return メモの内容一覧が格納された配列
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<Memo> SelectMemos(int plot) throws Exception, SQLException {
+		String where = "plot = " + plot;
+		this.SelectWhere("memos", where);
+		ArrayList<Memo> result = new ArrayList<Memo>();
+		try {
+			Memo m = null;
+			while(rs.next()) {
+				m = new Memo();
+				m.setNo( rs.getInt("no") );
+				m.setPlot( rs.getString("plot") );
+				m.setNote( rs.getString("note") );
+
+				result.add(m);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * メモの内容一覧全件抽出
+	 *
+	 * @param plot 作品No
+	 * @return メモの内容一覧が格納された配列
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<Memo> SelectMemos(String plot) throws Exception, SQLException {
+		String where = "plot = " + plot;
+		this.SelectWhere("memos", where);
+		ArrayList<Memo> result = new ArrayList<Memo>();
+		try {
+			Memo m = null;
+			while(rs.next()) {
+				m = new Memo();
+				m.setNo( rs.getInt("no") );
+				m.setPlot( rs.getString("plot") );
+				m.setNote( rs.getString("note") );
+
+				result.add(m);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -883,6 +944,52 @@ public class DataAccess extends Dao {
 			this.pStmt.setString(1, s.getTitle());
 			this.pStmt.setString(2, s.getStory());
 			this.pStmt.setInt(3, s.getNo());
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * メモ新規登録
+	 *
+	 * @param m メモエンティティクラス
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void InsertMemo(Memo m) throws Exception, SQLException {
+		try {
+			this._sql = "INSERT INTO memos(plot, note) VALUES(?, ?);";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setInt(1, m.getPlot());
+			this.pStmt.setString(2, m.getNote());
+
+			this.pStmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	/**
+	 * メモ更新
+	 *
+	 * @param m メモエンティティクラス
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public void UpdateMemo(Memo m) throws Exception, SQLException {
+		try {
+			this._sql = "UPDATE memos SET note = ? WHERE no = ?;";
+			this.pStmt = this.cn.prepareStatement(this._sql);
+
+			this.pStmt.setString(1, m.getNote());
+			this.pStmt.setInt(2, m.getNo());
 
 			this.pStmt.executeUpdate();
 		}

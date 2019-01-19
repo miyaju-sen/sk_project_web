@@ -38,7 +38,9 @@ public class MemoImage {
 	 * @param no 主キー
 	 */
 	public void setNo(String no) {
-		this._no = Integer.valueOf(no);
+		if(!"".equals(no)) {
+			this._no = Integer.valueOf(no);
+		}
 	}
 	/**
 	 * メモNoのセッター
