@@ -13,6 +13,7 @@ public class Memo {
 	private int _no; //主キー
 	private Plot _plot; //作品No
 	private String _note; //内容
+	private int _position; //配置位置
 	private boolean _deleted; //削除フラグ
 
 	/**
@@ -22,6 +23,7 @@ public class Memo {
 		this._no = 0;
 		this._plot = new Plot();
 		this._note = "";
+		this._position = 0;
 		this._deleted = false;
 	}
 
@@ -64,6 +66,22 @@ public class Memo {
 		this._note = note;
 	}
 	/**
+	 * 配置位置のセッター
+	 * @param position 配置位置
+	 */
+	public void setPosition(int position) {
+		this._position = position;
+	}
+	/**
+	 * 配置位置のセッター
+	 * @param position 配置位置
+	 */
+	public void setPosition(String position) {
+		if(!"".equals(position)) {
+			this._position = Integer.valueOf(position);
+		}
+	}
+	/**
 	 * 削除フラグのセッター
 	 * @param deleted 削除フラグ
 	 */
@@ -92,6 +110,13 @@ public class Memo {
 	 */
 	public String getNote() {
 		return this._note;
+	}
+	/**
+	 * 配置位置のゲッター
+	 * @return 配置位置
+	 */
+	public int getPosition() {
+		return this._position;
 	}
 	/**
 	 * 削除フラグのゲッター

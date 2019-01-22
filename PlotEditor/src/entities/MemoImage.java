@@ -13,6 +13,7 @@ public class MemoImage {
 	private int _no; //主キー
 	private Memo _memo; //メモNo
 	private String _imagePath; //画像パス
+	private int _position; //配置位置
 	private boolean _deleted; //削除フラグ
 
 	/**
@@ -22,6 +23,7 @@ public class MemoImage {
 		this._no = 0;
 		this._memo = new Memo();
 		this._imagePath = "";
+		this._position = 0;
 		this._deleted = false;
 	}
 
@@ -64,6 +66,22 @@ public class MemoImage {
 		this._imagePath = imagePath;
 	}
 	/**
+	 * 配置位置のセッター
+	 * @param position 配置位置
+	 */
+	public void setPosition(int position) {
+		this._position = position;
+	}
+	/**
+	 * 配置位置のセッター
+	 * @param position 配置位置
+	 */
+	public void setPosition(String position) {
+		if(!"".equals(position)) {
+			this._position = Integer.valueOf(position);
+		}
+	}
+	/**
 	 * 削除フラグのセッター
 	 * @param deleted 削除フラグ
 	 */
@@ -92,6 +110,13 @@ public class MemoImage {
 	 */
 	public String getImagePath() {
 		return this._imagePath;
+	}
+	/**
+	 * 配置位置のゲッター
+	 * @return 配置位置
+	 */
+	public int getPosition() {
+		return this._position;
 	}
 	/**
 	 * 削除フラグのゲッター

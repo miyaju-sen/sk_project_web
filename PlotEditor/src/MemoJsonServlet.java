@@ -55,6 +55,8 @@ public class MemoJsonServlet extends HttpServlet {
 		String no = (String)request.getParameter("no");
 		m.setPlot( (String)request.getParameter("plot") );
 		m.setNote( (String)request.getParameter("note") );
+		m.setPosition( (String)request.getParameter("position") );
+
 
 		//取得できなかった場合
 		if(null == no) {
