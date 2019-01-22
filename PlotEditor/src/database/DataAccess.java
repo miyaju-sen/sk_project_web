@@ -513,7 +513,7 @@ public class DataAccess extends Dao {
 	 * @throws SQLException
 	 */
 	public ArrayList<Memo> SelectMemos(int plot) throws Exception, SQLException {
-		String where = "plot = " + plot;
+		String where = "plot = " + plot + " AND deleted = false";
 		this.SelectWhere("memos", where);
 		ArrayList<Memo> result = new ArrayList<Memo>();
 		try {
@@ -543,7 +543,7 @@ public class DataAccess extends Dao {
 	 * @throws SQLException
 	 */
 	public ArrayList<Memo> SelectMemos(String plot) throws Exception, SQLException {
-		String where = "plot = " + plot;
+		String where = "plot = " + plot + " AND deleted = false";
 		this.SelectWhere("memos", where);
 		ArrayList<Memo> result = new ArrayList<Memo>();
 		try {
