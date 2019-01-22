@@ -60,6 +60,9 @@ public class MemoJsonServlet extends HttpServlet {
 		if(null == no) {
 			no = "";
 		}
+		if(null == m.getNote()) {
+			m.setNote("");
+		}
 
 		//DBに接続
 		DataAccess da = null;
@@ -92,6 +95,7 @@ public class MemoJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		request.setAttribute("NEWID", newId);
 		request.setAttribute("MEMOS", memos);
 		RequestDispatcher rd = request.getRequestDispatcher("memos_json.jsp");
 		rd.forward(request, response);

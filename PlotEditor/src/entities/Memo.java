@@ -54,7 +54,9 @@ public class Memo {
 	 * @param plot 作品No
 	 */
 	public void setPlot(String plot) {
-		this._plot.setNo(plot);
+		if(null != plot) {
+			this._plot.setNo(plot);
+		}
 	}
 	/**
 	 * 内容のセッター
