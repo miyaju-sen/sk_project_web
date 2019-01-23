@@ -174,41 +174,19 @@ public class DataAccess extends Dao {
 	 * @throws SQLException
 	 */
 	public ArrayList<Plot> SelectPlots() throws Exception, SQLException {
-		String where = "deleted = false";
-		this.SelectWhere("plots", where);
-		ArrayList<Plot> result = new ArrayList<Plot>();
-		try {
-			Plot p = null;
-			while(rs.next()) {
-				p = new Plot();
-				p.setNo( rs.getInt("no") );
-				p.setTitle( rs.getString("title") );
-				p.setSlogan( rs.getString("slogan") );
-				p.setSummary( rs.getString("summary") );
-				p.setUpdatedAt( rs.getString("updated_at") );
-				p.setDeleted( rs.getBoolean("deleted") );
+		this._sql = "SELECT "
+				+ "no, "
+				+ "title, "
+				+ "slogan, "
+				+ "summary, "
+				+ "DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i') AS updated_at, "
+				+ "deleted "
+				+ "FROM plots "
+				+ "WHERE deleted = false;";
+		System.out.println(_sql);
+		this.st = this.cn.createStatement();
+		this.rs = this.st.executeQuery(this._sql);
 
-				result.add(p);
-			}
-			return result;
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-            throw e;
-		}
-	}
-
-	/**
-	 * 主キーでプロット情報抽出
-	 *
-	 * @param no 主キー
-	 * @return 主キーと一致するプロットの情報
-	 * @throws Exception
-	 * @throws SQLException
-	 */
-	public ArrayList<Plot> SelectPlots(int no) throws Exception, SQLException {
-		String where = "no = " + no;
-		this.SelectWhere("plots", where);
 		ArrayList<Plot> result = new ArrayList<Plot>();
 		try {
 			Plot p = null;
@@ -513,8 +491,17 @@ public class DataAccess extends Dao {
 	 * @throws SQLException
 	 */
 	public ArrayList<Memo> SelectMemos(int plot) throws Exception, SQLException {
-		String where = "plot = " + plot + " AND deleted = false";
-		this.SelectWhere("memos", where);
+		this._sql = "SELECT "
+				+ "no, "
+				+ "plot, "
+				+ "note, "
+				+ "DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i') AS updated_at, "
+				+ "deleted "
+				+ "FROM memos "
+				+ "WHERE plot = " + plot + " AND deleted = false;";
+		this.st = this.cn.createStatement();
+		this.rs = this.st.executeQuery(this._sql);
+
 		ArrayList<Memo> result = new ArrayList<Memo>();
 		try {
 			Memo m = null;
@@ -544,8 +531,17 @@ public class DataAccess extends Dao {
 	 * @throws SQLException
 	 */
 	public ArrayList<Memo> SelectMemos(String plot) throws Exception, SQLException {
-		String where = "plot = " + plot + " AND deleted = false";
-		this.SelectWhere("memos", where);
+		this._sql = "SELECT "
+				+ "no, "
+				+ "plot, "
+				+ "note, "
+				+ "DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i') AS updated_at, "
+				+ "deleted "
+				+ "FROM memos "
+				+ "WHERE plot = " + plot + " AND deleted = false;";
+		this.st = this.cn.createStatement();
+		this.rs = this.st.executeQuery(this._sql);
+
 		ArrayList<Memo> result = new ArrayList<Memo>();
 		try {
 			Memo m = null;
