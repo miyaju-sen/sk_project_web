@@ -13,6 +13,7 @@ public class Memo {
 	private int _no; //主キー
 	private Plot _plot; //作品No
 	private String _note; //内容
+	private String _updatedAt; //更新日時
 	private boolean _deleted; //削除フラグ
 
 	/**
@@ -22,6 +23,7 @@ public class Memo {
 		this._no = 0;
 		this._plot = new Plot();
 		this._note = "";
+		this._updatedAt = "";
 		this._deleted = false;
 	}
 
@@ -66,6 +68,13 @@ public class Memo {
 		this._note = note;
 	}
 	/**
+	 * 更新日時のセッター
+	 * @param updatedAt 更新日時
+	 */
+	public void setUpdatedAt(String updatedAt) {
+		this._updatedAt = updatedAt;
+	}
+	/**
 	 * 削除フラグのセッター
 	 * @param deleted 削除フラグ
 	 */
@@ -94,6 +103,13 @@ public class Memo {
 	 */
 	public String getNote() {
 		return this._note;
+	}
+	/**
+	 * 更新日時のゲッター
+	 * @return 更新日時
+	 */
+	public String getUpdatedAt() {
+		return this._updatedAt;
 	}
 	/**
 	 * 削除フラグのゲッター

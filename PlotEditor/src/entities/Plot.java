@@ -14,7 +14,7 @@ public class Plot {
 	private String _title; //作品タイトル
 	private String _slogan; //キャッチコピー
 	private String _summary; //あらすじ
-	private String _createdAt; //作成日
+	private String _updatedAt; //更新日時
 	private boolean _deleted; //削除フラグ
 
 	/**
@@ -25,7 +25,7 @@ public class Plot {
 		this._title = "";
 		this._slogan = "";
 		this._summary = "";
-		this._createdAt = "";
+		this._updatedAt = "";
 		this._deleted = false;
 	}
 
@@ -66,11 +66,11 @@ public class Plot {
 		this._summary = summary;
 	}
 	/**
-	 * 作成日のセッター
-	 * @param createdDate 作成日
+	 * 更新日時のセッター
+	 * @param updatedAt 更新日時
 	 */
-	public void setCreatedAt(String createdAt) {
-		this._createdAt = createdAt;
+	public void setUpdatedAt(String updatedAt) {
+		this._updatedAt = updatedAt;
 	}
 	/**
 	 * 削除フラグのセッター
@@ -110,11 +110,11 @@ public class Plot {
 		return this._summary;
 	}
 	/**
-	 * 作成日のゲッター
-	 * @return 作成日
+	 * 更新日時のゲッター
+	 * @return 更新日時
 	 */
-	public String getCreatedAt() {
-		return this._createdAt;
+	public String getUpdatedAt() {
+		return this._updatedAt;
 	}
 	/**
 	 * 削除フラグのゲッター

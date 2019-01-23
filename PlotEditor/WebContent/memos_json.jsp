@@ -14,6 +14,7 @@
 			"no":"<%=memos.get(i).getNo() %>",
 			"plot":"<%=memos.get(i).getPlot() %>",
 			"note":"<%=memos.get(i).getNote() %>",
+			"updated_at":"<%=memos.get(i).getUpdatedAt() %>",
 			"deleted":"<%=memos.get(i).isDeleted() %>"
 		<% if(i != cnt) { %>
 		},

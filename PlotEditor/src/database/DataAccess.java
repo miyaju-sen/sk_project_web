@@ -185,7 +185,7 @@ public class DataAccess extends Dao {
 				p.setTitle( rs.getString("title") );
 				p.setSlogan( rs.getString("slogan") );
 				p.setSummary( rs.getString("summary") );
-				p.setCreatedAt( rs.getString("created_at") );
+				p.setUpdatedAt( rs.getString("updated_at") );
 				p.setDeleted( rs.getBoolean("deleted") );
 
 				result.add(p);
@@ -218,7 +218,7 @@ public class DataAccess extends Dao {
 				p.setTitle( rs.getString("title") );
 				p.setSlogan( rs.getString("slogan") );
 				p.setSummary( rs.getString("summary") );
-				p.setCreatedAt( rs.getString("created_at") );
+				p.setUpdatedAt( rs.getString("updated_at") );
 				p.setDeleted( rs.getBoolean("deleted") );
 
 				result.add(p);
@@ -523,6 +523,7 @@ public class DataAccess extends Dao {
 				m.setNo( rs.getInt("no") );
 				m.setPlot( rs.getString("plot") );
 				m.setNote( rs.getString("note") );
+				m.setUpdatedAt( rs.getString("updated_at") );
 
 				result.add(m);
 			}
@@ -553,6 +554,7 @@ public class DataAccess extends Dao {
 				m.setNo( rs.getInt("no") );
 				m.setPlot( rs.getString("plot") );
 				m.setNote( rs.getString("note") );
+				m.setUpdatedAt( rs.getString("updated_at") );
 
 				result.add(m);
 			}

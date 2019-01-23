@@ -15,7 +15,7 @@
 			"title":"<%=plots.get(i).getTitle() %>",
 			"slogan":"<%=plots.get(i).getSlogan() %>",
 			"summary":"<%=plots.get(i).getSummary() %>",
-			"created_at":"<%=plots.get(i).getCreatedAt() %>",
+			"updated_at":"<%=plots.get(i).getUpdatedAt() %>",
 			"deleted":"<%=plots.get(i).isDeleted() %>"
 		<% if(i != cnt) { %>
 		},
