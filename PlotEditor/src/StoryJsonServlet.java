@@ -70,6 +70,8 @@ public class StoryJsonServlet extends HttpServlet {
 
 			//新規登録
 			if("".equals(no) && 0 != s.getIdea()) {
+				//TODO:送信されてくるのは起承転結番号であって、構想Noではない。そのためインサートでおかしくなる。
+
 				s.setNo(no);
 				da.InsertStory(s);
 			}
