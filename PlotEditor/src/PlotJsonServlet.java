@@ -58,6 +58,10 @@ public class PlotJsonServlet extends HttpServlet {
 		p.setSlogan( (String)request.getParameter("slogan") );
 		p.setSummary( (String)request.getParameter("summary") );
 
+		//ユーザ情報を固定値で送信
+		String user = "1";
+		p.setUser(user);
+
 		//DBに接続
 		DataAccess da = null;
 		try {
@@ -83,7 +87,7 @@ public class PlotJsonServlet extends HttpServlet {
 			}
 
 			//plotsテーブルから全件抽出
-			plots = da.SelectPlots();
+			plots = da.SelectPlots(user);
 
 			da.Close();
 		}

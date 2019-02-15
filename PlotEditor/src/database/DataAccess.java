@@ -173,7 +173,7 @@ public class DataAccess extends Dao {
 	 * @throws Exception
 	 * @throws SQLException
 	 */
-	public ArrayList<Plot> SelectPlots() throws Exception, SQLException {
+	public ArrayList<Plot> SelectPlots(String user) throws Exception, SQLException {
 		this._sql = "SELECT "
 				+ "no, "
 				+ "title, "
@@ -182,7 +182,8 @@ public class DataAccess extends Dao {
 				+ "DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i') AS updated_at, "
 				+ "deleted "
 				+ "FROM plots "
-				+ "WHERE deleted = false;";
+				+ "WHERE deleted = false "
+				+ "AND user = " + user + ";";
 		System.out.println(_sql);
 		this.st = this.cn.createStatement();
 		this.rs = this.st.executeQuery(this._sql);
@@ -575,12 +576,13 @@ public class DataAccess extends Dao {
 	public void InsertPlot(Plot p) throws Exception, SQLException {
 		try {
 			this._sql = "INSERT INTO plots(title, slogan, summary) "
-					+ "VALUES(?, ?, ?);";
+					+ "VALUES(?, ?, ?) WHERE user = ?;";
 			this.pStmt = this.cn.prepareStatement(this._sql);
 
 			this.pStmt.setString(1, p.getTitle());
 			this.pStmt.setString(2, p.getSlogan());
 			this.pStmt.setString(3, p.getSummary());
+			this.pStmt.setString(4, p.getUser());
 
 			this.pStmt.executeUpdate();
 		}
