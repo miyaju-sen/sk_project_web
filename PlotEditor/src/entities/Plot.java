@@ -11,7 +11,7 @@ public class Plot {
 	 * フィールド
 	 */
 	private int _no; //作品No
-	private String _user; //ユーザNo
+	private int _user; //ユーザNo
 	private String _title; //作品タイトル
 	private String _slogan; //キャッチコピー
 	private String _summary; //あらすじ
@@ -23,7 +23,7 @@ public class Plot {
 	 */
 	public Plot() {
 		this._no = 0;
-		this._user = "";
+		this._user = 0;
 		this._title = "";
 		this._slogan = "";
 		this._summary = "";
@@ -50,7 +50,7 @@ public class Plot {
 	 * ユーザNoのセッター
 	 * @param user ユーザNo
 	 */
-	public void setUser(String user) {
+	public void setUser(int user) {
 		this._user = user;
 	}
 	/**
@@ -101,7 +101,7 @@ public class Plot {
 	 * ユーザNoのゲッター
 	 * @return ユーザNo
 	 */
-	public String getUser() {
+	public int getUser() {
 		return this._user;
 	}
 	/**

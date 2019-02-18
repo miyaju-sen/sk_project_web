@@ -59,7 +59,7 @@ public class PlotJsonServlet extends HttpServlet {
 		p.setSummary( (String)request.getParameter("summary") );
 
 		//ユーザ情報を固定値で送信
-		String user = "1";
+		int user = 1;
 		p.setUser(user);
 
 		//DBに接続
